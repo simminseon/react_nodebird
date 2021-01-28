@@ -5,15 +5,9 @@ import reducer from '../reducers';
 
 const configureStore = () => {
   const store = createStore(reducer);
-  store.dispath({
-    type: 'CHANGE_CICKNANE',
-    data: 'boogicho'
-  })
   return store;
-}
+};
 
-const wrapper = createWrapper(configureStore, { 
-  debug: process.env.NODE_ENV === 'development', 
-});
+const wrapper = createWrapper(configureStore, { debug: process.env.NODE_ENV === 'development' });
 
 export default wrapper;

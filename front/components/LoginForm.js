@@ -1,12 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 import useInput from '../hooks/useInput';
-import { useDispatch } from 'react-redux';
-import { loginAction } from '../reducers';
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -16,15 +14,15 @@ const FormWrapper = styled(Form)`
 `;
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const [ id, onChangeId ] = useInput('');
   const [ password, onChangePassword ] = useInput('');
 
-  // const dispatch = useDispatch();
 
   const onSubmitForm = React.useCallback(() => {
-    // dispatch(loginAction({ id, password }));
     // e.preventDefault() antd에서는 사용하면 안됨
-    setIsLoggedIn(true)
+    // setIsLoggedIn(true)
+    dispatch(loginAction());
 
   }, [id, password]);
 
