@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 import useInput from '../hooks/useInput';
+import { loginAction } from '../reducers';
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -22,7 +23,7 @@ const LoginForm = () => {
   const onSubmitForm = React.useCallback(() => {
     // e.preventDefault() antd에서는 사용하면 안됨
     // setIsLoggedIn(true)
-    dispatch(loginAction());
+    dispatch(loginAction({ id, password }));
 
   }, [id, password]);
 
