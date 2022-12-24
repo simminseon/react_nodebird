@@ -1,0 +1,2 @@
+- import React ~~ 안해도됨
+- pages 폴더명 필수(next.js가 인식하여 코드 스플리팅 해줌)
