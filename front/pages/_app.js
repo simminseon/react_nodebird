@@ -1,6 +1,8 @@
 import React from "react";
-import Head from "next/head";
 import PropTypes from "prop-types";
+import Head from "next/head";
+
+import wrapper from "../store/configureStore.js";
 
 const App = ({ Component }) => {
   return (
@@ -18,4 +20,4 @@ const App = ({ Component }) => {
 App.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
-export default App;
+export default wrapper.withRedux(App);
