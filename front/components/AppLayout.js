@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { Menu, Input, Row, Col } from "antd";
@@ -6,43 +7,55 @@ import { Menu, Input, Row, Col } from "antd";
 import UserProfile from "../components/UserProfile";
 import LoginForm from "../components/LoginForm";
 
+const SearchInput = styled(Input.Search)`
+  vertical-align: middle;
+`;
+
+const menuItems = [
+  {
+    key: "home",
+    label: (
+      <Link href="/">
+        <a>노드버드</a>
+      </Link>
+    ),
+  },
+  {
+    key: "profile",
+    label: (
+      <Link href="/profile">
+        <a>프로필</a>
+      </Link>
+    ),
+  },
+  {
+    key: "search",
+    label: <SearchInput enterButton />,
+  },
+  {
+    key: "signup",
+    label: (
+      <Link href="/signup">
+        <a>회원가입</a>
+      </Link>
+    ),
+  },
+];
+
 const AppLayout = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div>
-      <Menu mode="horizontal">
-        <Menu.Item key="home">
-          <Link href="/">
-            <a>노드버드</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="profile">
-          <Link href="/profile">
-            <a>프로필</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="search">
-          <Input.Search enterButton style={{ verticalAlign: "middle" }} />
-        </Menu.Item>
-        <Menu.Item key="signup">
-          <Link href="/signup">
-            <a>회원가입</a>
-          </Link>
-        </Menu.Item>
-      </Menu>
+      <Menu mode="horizontal" items={menuItems}></Menu>
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLoggedIn ? <UserProfile /> : <LoginForm />}
+          {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn} /> : <LoginForm setIsLoggedIn={setIsLoggedIn} />}
         </Col>
         <Col xs={24} md={12}>
           {children}
         </Col>
         <Col xs={24} md={6}>
-          <a
-            href="https://www.github.com/simminseon/react_nodebird"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
+          <a href="https://www.github.com/simminseon/react_nodebird" target="_blank" rel="noreferrer noopener">
             Github
           </a>
         </Col>

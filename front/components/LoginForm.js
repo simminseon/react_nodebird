@@ -1,21 +1,31 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 import { Button, Form, Input } from "antd";
 import Link from "next/link";
 
-const LoginForm = () => {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+import useInput from "../hooks/useInput";
 
-  const onChangeId = useCallback((e) => {
-    setId(e.target.value);
-  }, []);
+const ButtonWrapper = styled.div`
+  margin-top: 10px;
+`;
 
-  const onChangePassword = useCallback((e) => {
-    setPassword(e.target.value);
-  }, []);
+const FormWrapper = styled(Form)`
+  padding: 10px;
+`;
+
+const LoginForm = ({ setIsLoggedIn }) => {
+  const [id, onChangeId] = useInput("");
+  const [password, onChangePassword] = useInput("");
+
+  const onSubmitForm = useCallback(() => {
+    // antd에서 onFinish는 이미 e.preventDefault()가 되어있음
+    console.log(id, password);
+    setIsLoggedIn(true);
+  }, [id, password]);
 
   return (
-    <Form>
+    <FormWrapper onFinish={onSubmitForm}>
       <div>
         <label htmlFor="user-id">아이디</label>
         <br />
@@ -24,15 +34,9 @@ const LoginForm = () => {
       <div>
         <label htmlFor="user-password">비밀번호</label>
         <br />
-        <Input
-          name="user-password"
-          type="password"
-          value={password}
-          onChange={onChangePassword}
-          required
-        />
+        <Input name="user-password" type="password" value={password} onChange={onChangePassword} required />
       </div>
-      <div>
+      <ButtonWrapper>
         <Button type="primary" htmlType="submit" loading={false}>
           로그인
         </Button>
@@ -41,9 +45,13 @@ const LoginForm = () => {
             <Button>회원가입</Button>
           </a>
         </Link>
-      </div>
-    </Form>
+      </ButtonWrapper>
+    </FormWrapper>
   );
+};
+
+LoginForm.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequred,
 };
 
 export default LoginForm;

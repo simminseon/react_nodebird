@@ -1,16 +1,31 @@
-import React from "react";
-import Head from "next/head";
+import React, { useCallback } from "react";
+import { Avatar, Button, Card } from "antd";
 
-import AppLayout from "../components/AppLayout";
+const UserProfile = ({ setIsLoggedIn }) => {
+  const onLogOut = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
 
-const UserProfile = () => {
   return (
-    <>
-      <Head>
-        <title>내 프로필 | NodeBird</title>
-      </Head>
-      <AppLayout>프로필</AppLayout>
-    </>
+    <Card
+      actions={[
+        <div key="twit">
+          짹짹
+          <br />0
+        </div>,
+        <div key="followings">
+          팔로잉
+          <br />0
+        </div>,
+        <div key="followings">
+          팔로워
+          <br />0
+        </div>,
+      ]}
+    >
+      <Card.Meta avatar={<Avatar>SUNNY</Avatar>} title="sunny" />
+      <Button onClick={onLogOut}>로그아웃</Button>
+    </Card>
   );
 };
 
