@@ -58,7 +58,11 @@ const AppLayout = ({ children }) => {
           {children}
         </Col>
         <Col xs={24} md={6}>
-          <a href="https://www.github.com/simminseon/react_nodebird" target="_blank" rel="noreferrer noopener">
+          <a
+            href="https://www.github.com/simminseon/react_nodebird"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             Github
           </a>
         </Col>

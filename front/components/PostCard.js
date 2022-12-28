@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
-import { Avatar, Button, Card, Popover } from "antd";
+import Link from "next/link";
+import { Avatar, Button, Card, List, Popover } from "antd";
 import {
   RetweetOutlined,
   HeartTwoTone,
@@ -64,9 +65,34 @@ const PostCard = ({ post }) => {
           description={post.content}
         />
       </Card>
-      {commentFormOpend && <div>댓글 부분</div>}
-      {/* <CommentForm /> */}
-      {/* <Comments /> */}
+      {commentFormOpend && (
+        <div>
+          <CommentForm post={post} />
+          <List
+            header={`${post.Comments.length}개의 댓글`}
+            itemLayout="horizontal"
+            dataSource={post.Comments}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  title={item.User.nickname}
+                  avatar={
+                    <Link
+                      href={{ pathname: "/user", query: { id: item.User.id } }}
+                      as={`/user/${item.User.id}`}
+                    >
+                      <a>
+                        <Avatar>{item.User.nickname[0]}</Avatar>
+                      </a>
+                    </Link>
+                  }
+                  description={item.content}
+                />
+              </List.Item>
+            )}
+          />
+        </div>
+      )}
     </div>
   );
 };
