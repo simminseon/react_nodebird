@@ -44,8 +44,9 @@ const menuItems = [
 ];
 
 const AppLayout = ({ children }) => {
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  // const { isLoggedIn } = useSelector((state) => state.user); 이렇게도 가능
+  // const isLoggedIn = useSelector((state) => state.user.isLoggedIn); 이렇게도 가능
+  const { isLoggedIn } = useSelector((state) => state.user);
+
   return (
     <div>
       <Menu mode="horizontal" items={menuItems}></Menu>
