@@ -29,6 +29,8 @@ export const logoutAction = (data) => {
 // 이전상태와 액션을 통해서 다음 상태를 만들어내는 함수
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case HYDRATE:
+      console.log("hyderate", HYDRATE);
     case "LOG_IN":
       return {
         ...state,
@@ -50,9 +52,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
