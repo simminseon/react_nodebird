@@ -4,8 +4,8 @@ import { Button, Form, Input } from "antd";
 import Link from "next/link";
 
 import useInput from "../hooks/useInput";
-import { useDispatch } from "react-redux";
-import { loginAction } from "../reducers/user";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRequestAction } from "../reducers/user";
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -17,13 +17,14 @@ const FormWrapper = styled(Form)`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const { logInLoading } = useSelector((state) => state.user);
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
 
   const onSubmitForm = useCallback(() => {
     // antd에서 onFinish는 이미 e.preventDefault()가 되어있음
     console.log(id, password);
-    dispatch(loginAction({ id, password }));
+    dispatch(loginRequestAction({ id, password }));
   }, [id, password]);
 
   return (
@@ -36,10 +37,16 @@ const LoginForm = () => {
       <div>
         <label htmlFor="user-password">비밀번호</label>
         <br />
-        <Input name="user-password" type="password" value={password} onChange={onChangePassword} required />
+        <Input
+          name="user-password"
+          type="password"
+          value={password}
+          onChange={onChangePassword}
+          required
+        />
       </div>
       <ButtonWrapper>
-        <Button type="primary" htmlType="submit" loading={false}>
+        <Button type="primary" htmlType="submit" loading={logInLoading}>
           로그인
         </Button>
         <Link href="/signup">

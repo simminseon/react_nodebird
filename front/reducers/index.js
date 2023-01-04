@@ -4,8 +4,6 @@ import { combineReducers } from "redux";
 import user from "./user";
 import post from "./post";
 
-const initialState = {};
-
 // (이전상태, 액션) => 다음 상태
 // 이전상태와 액션을 통해서 다음 상태를 만들어내는 함수
 const rootReducer = combineReducers({
