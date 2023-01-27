@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import Link from "next/link";
-import { Avatar, Button, Card, List, Popover } from "antd";
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
+import { Avatar, Button, Card, List, Popover } from 'antd';
 import {
   RetweetOutlined,
   HeartTwoTone,
   HeartOutlined,
   MessageOutlined,
   EllipsisOutlined,
-} from "@ant-design/icons";
-import { useSelector } from "react-redux";
+} from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
-import PostImages from "./PostImages";
-import CommentForm from "./CommentForm";
-import PostCardContent from "./PostCardContent";
+import PostImages from './PostImages';
+import CommentForm from './CommentForm';
+import PostCardContent from './PostCardContent';
 
 const PostCard = ({ post }) => {
   // 아래 코드 두개 한방에 쓰기 : const id = useSelector((state) => state.user.me?.id)
@@ -30,13 +30,17 @@ const PostCard = ({ post }) => {
   }, []);
 
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div style={{ marginBottom: '20px' }}>
       <Card
         cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={[
           <RetweetOutlined key="retweet" />,
           liked ? (
-            <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onToggleLike} />
+            <HeartTwoTone
+              twoToneColor="#eb2f96"
+              key="heart"
+              onClick={onToggleLike}
+            />
           ) : (
             <HeartOutlined key="heart" onClick={onToggleLike} />
           ),
@@ -79,7 +83,7 @@ const PostCard = ({ post }) => {
                   title={item.User.nickname}
                   avatar={
                     <Link
-                      href={{ pathname: "/user", query: { id: item.User.id } }}
+                      href={{ pathname: '/user', query: { id: item.User.id } }}
                       as={`/user/${item.User.id}`}
                     >
                       <a>

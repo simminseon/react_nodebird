@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import Link from "next/link";
-import { Menu, Input, Row, Col } from "antd";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
+import { Menu, Input, Row, Col } from 'antd';
+import { useSelector } from 'react-redux';
 
-import UserProfile from "../components/UserProfile";
-import LoginForm from "../components/LoginForm";
+import UserProfile from '../components/UserProfile';
+import LoginForm from '../components/LoginForm';
 
 const SearchInput = styled(Input.Search)`
   vertical-align: middle;
@@ -14,7 +14,7 @@ const SearchInput = styled(Input.Search)`
 
 const menuItems = [
   {
-    key: "home",
+    key: 'home',
     label: (
       <Link href="/">
         <a>노드버드</a>
@@ -22,7 +22,7 @@ const menuItems = [
     ),
   },
   {
-    key: "profile",
+    key: 'profile',
     label: (
       <Link href="/profile">
         <a>프로필</a>
@@ -30,11 +30,11 @@ const menuItems = [
     ),
   },
   {
-    key: "search",
+    key: 'search',
     label: <SearchInput enterButton />,
   },
   {
-    key: "signup",
+    key: 'signup',
     label: (
       <Link href="/signup">
         <a>회원가입</a>
@@ -45,14 +45,14 @@ const menuItems = [
 
 const AppLayout = ({ children }) => {
   // const isLogInDone = useSelector((state) => state.user.isLogInDone); 이렇게도 가능
-  const { isLogInDone } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
 
   return (
     <div>
       <Menu mode="horizontal" items={menuItems}></Menu>
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLogInDone ? <UserProfile /> : <LoginForm />}
+          {me ? <UserProfile /> : <LoginForm />}
         </Col>
         <Col xs={24} md={12}>
           {children}
