@@ -9,13 +9,16 @@ import {
   MessageOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
+import { REMOVE_POST_REQUEST } from './../reducers/post';
 
 const PostCard = ({ post }) => {
+  const dispatch = useDispatch();
+  const { removePostLoading } = useSelector((state) => state.post);
   // 아래 코드 두개 한방에 쓰기 : const id = useSelector((state) => state.user.me?.id)
   const { me } = useSelector((state) => state.user);
   const id = me?.id;
@@ -28,6 +31,10 @@ const PostCard = ({ post }) => {
   const onToggleComment = useCallback(() => {
     setCommentFormOpend((prev) => !prev);
   }, []);
+
+  const onRemovePost = useCallback(() => {
+    dispatch({ type: REMOVE_POST_REQUEST, data: post.id });
+  });
 
   return (
     <div style={{ marginBottom: '20px' }}>
@@ -52,7 +59,13 @@ const PostCard = ({ post }) => {
                 {id && post.User.id === id ? (
                   <>
                     <Button>수정</Button>
-                    <Button type="danger">삭제</Button>
+                    <Button
+                      type="danger"
+                      loading={removePostLoading}
+                      onClick={onRemovePost}
+                    >
+                      삭제
+                    </Button>
                   </>
                 ) : (
                   <Button>신고</Button>
@@ -104,7 +117,7 @@ const PostCard = ({ post }) => {
 
 PostCard.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     User: PropTypes.object,
     content: PropTypes.string,
     createAt: PropTypes.object,
